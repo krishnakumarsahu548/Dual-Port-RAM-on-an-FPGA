@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+ module tb;   
+   reg rst;  reg clk; reg wr1;reg wr2; reg [7:0] din1; reg [7:0] din2;  reg [7:0] add1;
+    reg [7:0] add2;
+    wire [7:0] dout1; wire [7:0] dout2; wire invalid;
+    dual_port_ram_fpga uut (.dout1(dout1), .dout2(dout2),.invalid(invalid),.rst(rst),
+    .clk(clk),.wr1(wr1),.wr2(wr2),.din1(din1),.din2(din2),.add1(add1),.add2(add2));
+   always #5 clk=~clk;
+    initial begin
+    clk=0;
+   rst = 1; wr1 = 0; wr2 = 0; din1 = 0; din2 = 0; add1 = 0; add2 = 0; #10;
+   rst = 0;
+    wr1 = 1; wr2 = 1; din1 = 8'hA5; din2 =8'h5A; add1 = 8'h01; add2 = 8'h02; #10;
+    wr1 = 1; wr2 = 1; din1 = 8'hA6; din2 =8'h6A; add1 = 8'h03; add2 = 8'h04; #10;
+    
+   wr1 = 0; wr2 = 0; add1 = 8'h01; add2 = 8'h02; #10;
+   wr1 = 0; wr2 = 0; add1 = 8'h03; add2 = 8'h04; #10;
+   
+    wr1 = 1; wr2 = 1; din1 = 8'hFF; din2 = 8'hEE; add1 = 8'h03; add2 = 8'h03; #10; /// invelid active
+    wr1 = 1; wr2 = 1; din1 = 8'hA5; din2 = 8'h5A; add1 = 8'h06; add2 = 8'h07; #10;
+    wr1 = 0; wr2 = 0; add1 = 8'h01; add2 = 8'h02; #10;
+    wr1 = 0; wr2 = 0; add1 = 8'h06; add2 = 8'h07; #10;
+  
+    wr1 = 1; wr2 = 1; din1 = 8'hFF; din2 = 8'hEE; add1 = 8'h00; add2 = 8'h01; #10;
+    wr1 = 0; wr2 = 0; add1 = 8'h00; add2 = 8'h01; #10;
+    wr1 = 1; wr2 = 0; din1 = 8'hBB; add1 = 8'h04; add2 = 8'h03; #10;
+    wr1 = 0; wr2 = 1;   add2 = 8'h04;  din2 = 8'hCC; add2 = 8'h05;  #10;
+    #50; 
+  $finish;
+  end
+    
+   endmodule
+   

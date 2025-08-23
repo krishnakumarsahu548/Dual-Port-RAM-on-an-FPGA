@@ -1,5 +1,8 @@
 # Dual-Port-RAM-on-an-FPGA
 A Dual Port RAM is a type of memory that has two independent ports, allowing simultaneous read and write operations (or two reads, or two writes) from different addresses. 
+# Block Digram
+![WhatsApp Image 2025-08-23 at 15 18 48_9b232b07](https://github.com/user-attachments/assets/0bfaf0c7-aaf2-4bf6-92ab-f6b0f73b2ae8)
+
  # What is a Dual Port RAM?
 A Dual Port RAM has two sets of address, data, and control lines:
 
